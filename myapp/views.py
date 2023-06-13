@@ -9,16 +9,12 @@ def inicio(request):
 
 def nuevo_ing(request):
     if request.method == 'POST':
-        nombreIng = request.POST.get('nomre_ing')
-        unidad = request.POST.get('unidad_medida')
-        
-        id_ing = str(uuid.uuid4)
+        nombreIng = request.POST.get('nombreIngrediente')
+        unidad = request.POST.get('unidadMedida')
+        id_ing = uuid.uuid4()
         
         ing = models.Ingrediente(id_ing, nombreIng, unidad)
         
         ing.save()
         
-    data = {
-        'formularioING': forms.IngredienteForm()
-    }
-    return render(request, 'myapp/ingredientes/nuevo_ingrediente.html', data)
+    return render(request, 'myapp/ingredientes/nuevo_ingrediente.html')

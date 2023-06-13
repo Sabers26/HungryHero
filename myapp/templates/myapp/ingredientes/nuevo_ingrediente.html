@@ -8,6 +8,7 @@
 
 {% block contenido %}
     <form action="" method="post">
+        {% csrf_token %}
         <section class="form-registro">
             <h4>Formulario Ingrediente</h4>
             <input class="controls" type="text" name="nombreIngrediente" id="nombreIngrediente" placeholder="Nombre Del Ingrediente">
