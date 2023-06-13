@@ -2,15 +2,10 @@
 
 {% load static %}
 
+{% block css %}
+   {% comment "Aqui va el CSS osea el link" %}{% endcomment %}
+{% endblock css %}
+
 {% block contenido %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            {{formularioING.as_table}}
-        </table>
-
-        <input type="submit" value="Guardar">
-        <input type="reset" value="Limpiar">
-
-    </form>
+    {% comment "Aqui va el formulario HTML" %}{% endcomment %}
 {% endblock contenido %}
