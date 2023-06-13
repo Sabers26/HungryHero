@@ -3,9 +3,24 @@
 {% load static %}
 
 {% block css %}
-   {% comment "Aqui va el CSS osea el link" %}{% endcomment %}
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/nuevo_ingrediente.css" />
 {% endblock css %}
 
 {% block contenido %}
-    {% comment "Aqui va el formulario HTML" %}{% endcomment %}
+    <form action="" method="post">
+        <section class="form-registro">
+            <h4>Formulario Ingrediente</h4>
+            <input class="controls" type="text" name="nombreIngrediente" id="nombreIngrediente" placeholder="Nombre Del Ingrediente">
+            <div class="centrado">
+                <select name="unidadMedida" id="unidadMedida">
+                    <option value="" selected>-----</option>
+                    <option value="ML">Mili Litros</option>
+                    <option value="GR">Gramos</option>
+                    <option value="L">Litros</option>
+                    <option value="U">Unidad</option>
+                </select>
+            </div>
+            <input class="boton" type="submit" value="guardar">
+        </section>
+    </form>
 {% endblock contenido %}
