@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <linkrel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesomemin.css%22%3E"/>
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/base.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- navbar -->
+        <div class="topnav" id="myTopnav">
+            <a href="#" class="active">Inicio</a>
+            <a href="#">Comidas</a>
+            <a href="#">Contactos</a>
+            <a href="#">Iniciar sesion</a>
+            <a href="#" class="carrito" style="background-color: green">Carrito</a>
+
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="contenido">
+            {% block contenido %}
+            
+            {% endblock contenido %}
+        </div>
+      <!-- footer -->
+        <footer>
+            <div class="footer">
+            <p>Dirijete a cualquiera de nuestras redes sociales</p>
+            <a href="#"><img src="imagenes/facebook.png" width="30px" /></a>
+            <a href="#"><img src="imagenes/gorjeo.png" width="30px" /></a>
+            <a href="#"><img src="imagenes/whatsapp.png" width="30px" /></a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

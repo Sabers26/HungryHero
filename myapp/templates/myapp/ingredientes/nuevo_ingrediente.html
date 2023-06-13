@@ -1,0 +1,16 @@
+{% extends 'myapp/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{formularioING.as_table}}
+        </table>
+
+        <input type="submit" value="Guardar">
+        <input type="reset" value="Limpiar">
+
+    </form>
+{% endblock contenido %}
