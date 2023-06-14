@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html' %}
+
+{% load static %}
+
+
+{% block css %}
+    {% comment "Aqui va el link de CSS propio" %}{% endcomment %}
+{% endblock css %}
+
+
+{% block contenido %}
+    <h2>Lista de ingredientes</h2>
+
+    <table>
+        <tr>
+            <th>Nombre ingrediente</th>
+            <th>Unidad de medida</th>
+            <th>Herramientas</th>
+        </tr>
+
+        {% for ing in ingrediente %}
+            <tr>
+                <td>{{ing.nombre_ing}}</td>
+                <td>{{ing.unidad_medida}}</td>
+                <td><a href="#">Eliminar</a></td>
+                <td><a href="#">Modificar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock contenido %}

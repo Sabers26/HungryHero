@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models import PROTECT, CASCADE
-import uuid
 
 # Create your models here.
 
@@ -8,15 +7,7 @@ import uuid
 class Ingrediente(models.Model):
     id_ing = models.TextField(primary_key=True, max_length=50)
     nombre_ing = models.TextField(max_length=15, unique=True, blank=False, null=False)
-    
-    UNIDAD = [
-        ('ML', 'MILI LITROS'),
-        ('GR', 'GRAMOS'),
-        ('L', 'LITROS'),
-        ('U', 'UNIDAD')
-    ]
-    
-    unidad_medida = models.TextField(null=False, blank=False, choices=UNIDAD)
+    unidad_medida = models.TextField(null=False, blank=False, max_length=15)
     
     def __str__(self):
         return str(f'{self.nombre_ing}')
