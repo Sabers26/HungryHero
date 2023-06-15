@@ -4,27 +4,29 @@
 
 
 {% block css %}
-    {% comment "Aqui va el link de CSS propio" %}{% endcomment %}
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/lista_ingredientes.css" />
 {% endblock css %}
 
 
 {% block contenido %}
-    <h2>Lista de ingredientes</h2>
-
-    <table>
-        <tr>
-            <th>Nombre ingrediente</th>
-            <th>Unidad de medida</th>
-            <th>Herramientas</th>
-        </tr>
-
-        {% for ing in ingrediente %}
-            <tr>
-                <td>{{ing.nombre_ing}}</td>
-                <td>{{ing.unidad_medida}}</td>
-                <td><a href="#">Eliminar</a></td>
-                <td><a href="#">Modificar</a></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <form action="" method="post">
+        <section class="form-registro">
+            <h4>Lista de ingredientes</h4>
+            <table>
+                <tr>
+                    <th>Nombre ingrediente</th>
+                    <th>Unidad de medida</th>
+                    <th>Herramientas</th>
+                </tr>
+                {% for ing in ingrediente %}
+                    <tr>
+                        <td>{{ing.nombre_ing}}</td>
+                        <td>{{ing.unidad_medida}}</td>
+                        <td class="eliminar"><a class="text" href="#">Eliminar</a></td>
+                        <td class="Modificar"><a href="#">Modificar</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </form>
 {% endblock contenido %}
