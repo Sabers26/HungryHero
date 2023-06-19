@@ -22,6 +22,11 @@
             <a href="#">Contactos</a>
             {% if user.is_authenticated %}
                 <a href="#">{{user.username}}: Cerrar sesion</a>
+                <select name="lista" id="lista">
+                    <option value="cerrar"><a href="#">{{user.username}}: Cerrar sesion</a></option>
+                    <option value="platos"><a href="#">platos</a></option>
+                    <option value="cuentas"><a href="#">cuentas</a></option>
+                </select>
             {% else %}
                 <a href="#">Iniciar Sesion</a>
             {% endif %}

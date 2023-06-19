@@ -1,0 +1,36 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/carrito.css" />
+{% endblock css %}
+
+{% block contenido %}
+    <section class="form-plato">
+        <h1>CARRITO DE COMPRA</h1>
+        <div class="informacion">
+            <ul>
+                <li class="info" >Nombre: <h4><!-- texto --> no se que va aqui</h4></li>
+                <li class="info" >ID: <h4><!-- texto --> no se que va aqui</h4></li>
+                <li class="info" >Descipcion: <h4><!-- texto --> no se que va aqui</h4></li>
+                <li class="info" >Precio: <h4><!-- texto --> no se que va aqui</h4></li>
+            </ul>
+            <div class="center">
+                <select name="cantidad" id="cantidad">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <form action="eliminar" method="post">
+                <input class="eliminar" type="submit" value="Eliminar">
+            </form>
+        </div>
+        <form action="compra" method="post">
+            <div class="center">
+                <input class="boton" type="submit" value="Comprar">
+            </div>
+        </form>
+    </section>
+{% endblock contenido %}
