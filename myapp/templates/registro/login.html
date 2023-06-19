@@ -1,28 +1,21 @@
 {% extends 'myapp/base.html' %}
 
+{% load static %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'myapp/'%}css/login.css" />
 {% endblock css %}
 
 {% block contenido %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="form_ingreso.css">
-        <title>Document</title>
-    </head>
-    <body>
+    <form action="" method="post">
+        {% csrf_token %}
         <section class="form-registro">
             <h4>Formulario Inicio Sesion</h4>
-            <input class="controls" type="text" name="usuarios" id="usuarios" placeholder="ingrese su usuario">
-            <input class="controls" type="password" name="contraseñas" id="contraseñas" placeholder="ingrese su contraseña">
-            <p>estoy de acuerdo con los<a href="#"> terminos y condiciones</a></p>
+            <input class="controls" type="text" name="usuario" id="usuario" placeholder="ingrese su usuario">
+            <input class="controls" type="password" name="password" id="password" placeholder="ingrese su contraseña">
+            <p><a href="#">Terminos & Condiciones</a></p>
             <input class="boton" type="submit" value="Entrar">
-            <p><a href="#">¿No Tienes Cuenta?</a></p>
+            <p><a href="{% url 'registrar_cliente' %}">¿No Tienes Cuenta?</a></p>
         </section>
-    </body>
-    </html>
+    </form>
 {% endblock contenido %}

@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from . import forms
 from . import models
 import uuid
 
@@ -6,34 +9,52 @@ import uuid
 def inicio(request):
     return render(request, 'myapp/index.html')
 
-def nuevo_ing(request):
+def registrar_cliente(request):
     data = {
-                'mensaje': ""
+        'mensaje': ""
     }
     if request.method == 'POST':
-        nombreIng = request.POST.get('nombreIngrediente')
-        unidad = request.POST.get('unidadMedida')
-        id_ing = uuid.uuid4()
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        email = request.POST['correo']
+        username = request.POST['usuario']
+        password = request.POST['password']
+        password2 = request.POST['password2']
         
-        try:
-            ing = models.Ingrediente(id_ing, nombreIng, unidad)
-            
-            ing.save()
-            
-            data = {
-                'mensaje': "Ingrediente guardado correctamente"
-            }
-        except Exception as e:
-            data = {
-                'mensaje': "No se pudo guardar el Ingrediente"
-            }
-    return render(request, 'myapp/ingredientes/nuevo_ingrediente.html', data)
+        usr = User()
+        usr.username = username
+        usr.set_password(password)
+        usr.save()
+        
+        cliente = models.Cliente()
+        id_cli = uuid.uuid4()
+        cliente.id_cliente = id_cli
+        cliente.nombre = nombre
+        cliente.apellido = apellido
+        cliente.email = email
+        cliente.cuenta = usr
+        cliente.save()
+        
+        usuario = authenticate(username=username, password=password)
+        login(request, usuario)
+        return redirect(to=inicio)
+    return render(request, 'registro/register.html', data)
 
-
-def listado_ing(request):
-    ing = models.Ingrediente.objects.all()
-    
+def iniciar_sesion(request):
     data = {
-        'ingrediente': ing
+        'mensaje': ''
     }
-    return render(request, 'myapp/ingredientes/listar_ingredientes.html', data)
+    if request.method == 'POST':
+        username = request.POST['usuario']
+        password = request.POST['password']
+        
+        usuario = authenticate(username=username, password=password)
+        
+        if usuario is not None:
+            login(request, usuario)
+            return redirect(to=inicio)
+        else:
+            data = {
+                'mensaje': 'usuario o contraseña invalido. Intentelo nuevamente'
+            }
+    return render(request, 'registro/login.html')

@@ -20,7 +20,11 @@
             <a href="#" class="active">Inicio</a>
             <a href="#">Comidas</a>
             <a href="#">Contactos</a>
-            <a href="#">Iniciar sesion</a>
+            {% if user.is_authenticated %}
+                <a href="#">{{user.username}}: Cerrar sesion</a>
+            {% else %}
+                <a href="#">Iniciar Sesion</a>
+            {% endif %}
             <a href="#" class="carrito" style="background-color: green">Carrito</a>
 
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
