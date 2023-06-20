@@ -2,6 +2,34 @@
 
 {% load static %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/index.css" />
+{% endblock css %}
+
 {% block contenido %}
-    <h1>soy el index</h1>
+    <div class="container">
+        <form action="" method="post"></form>
+            <!-- box -->
+            <div class="titulo">
+                <h1>Arroz Con Leche</h1>
+                <div class="box">
+                    <!-- imagen -->
+                    <div class="imgbox">
+                        <img src="imagenes/arroz con leche.jpeg" alt="">
+                    </div>
+                    <!-- contenidop detras de la imagen -->
+                    <div class="content" >
+                        <!-- necesario -->
+                        -
+                        <!-- necesario -->
+                        <p style="margin-left: 75%;">-contenido</p>
+                        <p style="margin-left: 75%;">-arroz 100g</p>
+                        <p style="margin-left: 75%;">-leche condensada</p>
+                
+                        <center><form style="margin-top: 27%;"> <button type="button" class="boton">Carrito</button> <p class="precio">$999</p></form></center>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock contenido %}
