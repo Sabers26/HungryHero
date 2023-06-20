@@ -41,9 +41,6 @@ def registrar_cliente(request):
     return render(request, 'registro/register.html', data)
 
 def iniciar_sesion(request):
-    data = {
-        'mensaje': ''
-    }
     if request.method == 'POST':
         username = request.POST['usuario']
         password = request.POST['password']
@@ -58,3 +55,12 @@ def iniciar_sesion(request):
                 'mensaje': 'usuario o contraseña invalido. Intentelo nuevamente'
             }
     return render(request, 'registro/login.html')
+
+def lista_platos(request):
+    platos = models.Plato.objects.all()
+    
+    data = {
+        'plato': platos
+    }
+    
+    return render(request, 'platos/lista_platos.html', data)
