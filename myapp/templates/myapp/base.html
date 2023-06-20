@@ -19,15 +19,12 @@
         <div class="topnav" id="myTopnav">
             <a href="{% url 'inicio' %}" class="active">Inicio</a>
             {% if user.is_authenticated %}
-                <select name="lista" id="lista">
-                    <option value="" selected ><a href="#">{{user.username}}</a></option>
-                    <option value=""><a href="#logut">Cerrar session</a></option>
-                    <option value="platos"><a href="{% url 'lista_platos' %}">platos</a></option>
-                    <option value="ventas"><a href="#">ventas</a></option>
-                </select>
+                <a href="{% url 'lista_platos' %}">platos</a>
+                <a href="#">ventas</a>
             {% else %}
                 <a href="{% url 'iniciar_sesion' %}">Iniciar Sesion</a>
             {% endif %}
+            <a href="#logut">{{user.username}}: cerrar sescion</a>
             <a href="#" class="carrito" style="background-color: green">Carrito</a>
 
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
