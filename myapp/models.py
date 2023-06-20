@@ -19,7 +19,7 @@ class Plato(models.Model):
     
     descripcion = models.TextField(null=False, validators=(MinLengthValidator(1), MaxLengthValidator(300)))
     
-    # imagen = models.ImageField(null=False)
+    #imagen = models.ImageField(null=False)
     def __str__(self):
         return str(f'{self.nombre_plato}')
     

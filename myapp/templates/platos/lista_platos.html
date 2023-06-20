@@ -27,7 +27,8 @@
             </tr>
         {% endfor %}
     </table>
-    <form action="{% url 'nuevo_plato' %}" method="post">
+    <form action="{% url 'nuevo_plato' %}" method="get">
+        {% csrf_token %}
         <input class="boton" type="submit" value="Nuevo PLato">
     </form>
 {% endblock contenido %}

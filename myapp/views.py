@@ -6,6 +6,8 @@ from . import forms
 from . import models
 import uuid
 
+id_usuario = any
+
 # Create your views here.
 def inicio(request):
     return render(request, 'myapp/index.html')
@@ -136,3 +138,8 @@ def modificar_plato(request, id):
         }
         return redirect(to=lista_platos)
     return render(request, 'platos/modificar_plato.html', data)
+
+@login_required
+def cerrar_sesion(request):
+    logout(request)
+    return redirect(to=inicio)
