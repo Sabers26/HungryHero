@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, permission_required
 from . import forms
 from . import models
 import uuid
@@ -56,6 +57,7 @@ def iniciar_sesion(request):
             }
     return render(request, 'registro/login.html')
 
+@permission_required('myapp.add_plato')
 def lista_platos(request):
     platos = models.Plato.objects.all()
     
@@ -64,3 +66,73 @@ def lista_platos(request):
     }
     
     return render(request, 'platos/lista_platos.html', data)
+
+@permission_required('myapp.add_plato')
+def nuevo_plato(request):
+    data = {
+        'mensaje': ''
+    }
+    
+    if request.method == 'POST':
+        nombre = request.POST['nombrePlato']
+        precio = request.POST['precioPlato']
+        stock = request.POST['stockPlato']
+        estado = request.POST['estado']
+        desc = request.POST['descripcion']
+        
+        p = models.Plato()
+        id_plato = uuid.uuid4()
+        
+        p.id_plato = id_plato
+        p.nombre_plato = nombre
+        p.precio_plato = precio
+        p.stock_plato = stock
+        p.descripcion = desc
+        p.estado_plato = estado
+        p.save()
+        
+        data = {
+            'mensaje': 'Plato Guardado correctamente'
+        }
+
+    return render(request, 'platos/nuevo_plato.html', data)
+
+@permission_required('myapp.add_plato')
+def eliminar_plato(request, id):
+    plato = models.Plato.objects.get(id_plato = id)
+    data = {
+        'plato': plato.nombre_plato
+    }
+    if request.method == 'POST':
+        plato.delete()
+        return redirect(to=lista_platos)
+    
+    return render(request, 'platos/eliminar_plato.html', data)
+
+@permission_required('myapp.add_plato')
+def modificar_plato(request, id):
+    p = models.Plato.objects.get(id_plato=id)
+    data = {
+        'plato': p,
+        'desc': str(p.descripcion)
+    }
+    
+    if request.method == 'POST':
+        nombre = request.POST['nombrePlato']
+        precio = request.POST['precioPlato']
+        stock = request.POST['stockPlato']
+        estado = request.POST['estado']
+        desc = request.POST['descripcion']
+        
+        p.nombre_plato = nombre
+        p.precio_plato = precio
+        p.stock_plato = stock
+        p.descripcion = desc
+        p.estado_plato = estado
+        p.save()
+        
+        data = {
+            'mensaje': 'Plato Modificado correctamente'
+        }
+        return redirect(to=lista_platos)
+    return render(request, 'platos/modificar_plato.html', data)

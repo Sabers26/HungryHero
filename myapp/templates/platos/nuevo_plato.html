@@ -8,20 +8,22 @@
 
 {% block contenido %}
     <form action="" method="post">
+        {% csrf_token %}
         <section class="form-plato">
             <!-- formulario -->
             <h4>Formulario De Platos</h4>
-            <input class="controls" type="text" name="nombrePlato" id="nombrePlato" placeholder="Nombre Del Plato">
-            <input class="controls" type="number" name="precioPlato" id="precioPlato" placeholder="Precio Del Plato">
-            <input class="controls" type="number" name="stockPlato" id="stockPlato" placeholder="Stock Del Plato">
+            <input class="controls" type="text" name="nombrePlato" id="nombrePlato" placeholder="Nombre Del Plato" required>
+            <input class="controls" type="number" name="precioPlato" id="precioPlato" placeholder="Precio Del Plato" required>
+            <input class="controls" type="number" name="stockPlato" id="stockPlato" placeholder="Stock Del Plato" required>
             <h5 class="box">Estado</h5>
             <select name="estado" id="estado">
-                <option value="HABILITADO">HABILITADO</option>
+                <option value="HABILITADO" selected>HABILITADO</option>
                 <option value="DESHABILITAD">DESHABILITAD</option>
             </select>
-            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
+            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Descripcion" required>
 
             <!-- botones -->
+            {{mensaje}}
             <input class="boton" type="submit" value="guardar">
             <input class="boton" type="submit" value="limpiar">
 

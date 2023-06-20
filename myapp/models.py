@@ -7,7 +7,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator, MaxLeng
 # tablas necesarias para el retiro en tienda 
 class Plato(models.Model):
     id_plato = models.UUIDField(primary_key=True, default=uuid.uuid4())
-    nombre_plato=models.CharField(max_length=50, null=False, unique=True)
+    nombre_plato=models.CharField(max_length=50, null=False, unique=True, blank=False)
     precio_plato = models.BigIntegerField(null=False, validators=(MinValueValidator(1), MaxValueValidator(99999)), default=0)
     stock_plato = models.BigIntegerField(null=False, default=0, validators=(MinValueValidator(1), MaxValueValidator(99999)))
     
@@ -18,6 +18,8 @@ class Plato(models.Model):
     estado_plato = models.CharField(null=False, default="HABILITADO", max_length=15, choices=ESTADO)
     
     descripcion = models.TextField(null=False, validators=(MinLengthValidator(1), MaxLengthValidator(300)))
+    
+    imagen = models.ImageField(null=False)
     def __str__(self):
         return str(f'{self.nombre_plato}')
     

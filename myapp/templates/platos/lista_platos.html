@@ -23,7 +23,7 @@
                 <td>{{p.stock_plato}}</td>
                 <td>{{p.estado_plato}}</td>
                 <td>{{p.descripcion}}</td>
-                <td><a href="#">MODIFICAR</a> | <a href="#">ELIMINAR</a></td>
+                <td><a href="{% url 'modificar_plato' p.id_plato %}">MODIFICAR</a> | <a href="{% url 'eliminar_plato' p.id_plato %}">ELIMINAR</a></td>
             </tr>
         {% endfor %}
     </table>

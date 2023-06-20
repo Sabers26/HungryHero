@@ -8,12 +8,13 @@
 
 {% block contenido %}
     <form action="" method="post">
+        {% csrf_token %}
         <section class="form-registro">
             <h1> seguro que deseas eliminar este plato? </h1>
-            <p>nombre: </p>
+            <p>nombre: {{plato}}</p>
 
             <input class="eliminar" type="submit" value="Confirmar">
-            <input class="boton" type="submit" value="Cancelar">
+            <a href="{% url 'lista_platos' %}">Cancelar</a>
         </section>
     </form>
 {% endblock contenido %}

@@ -8,22 +8,28 @@
 
 {% block contenido %}
     <form action="" method="post">
+        {% csrf_token %}
         <section class="form-plato">
             <!-- formulario -->
-            <h4>Formulario De Platos</h4>
-            <input class="controls" type="text" name="nombrePlato" id="nombrePlato" placeholder="Nombre Del Plato">
-            <input class="controls" type="number" name="precioPlato" id="precioPlato" placeholder="Precio Del Plato">
-            <input class="controls" type="number" name="stockPlato" id="stockPlato" placeholder="Stock Del Plato">
+            <h4>Formulario De Modificacion de Platos</h4>
+            <input class="controls" type="text" name="nombrePlato" id="nombrePlato" placeholder="Nombre Del Plato" value={{plato.nombre_plato}}>
+            <input class="controls" type="number" name="precioPlato" id="precioPlato" placeholder="Precio Del Plato" value={{plato.precio_plato}}>
+            <input class="controls" type="number" name="stockPlato" id="stockPlato" placeholder="Stock Del Plato" value={{plato.stock_plato}}>
             <h5 class="box">Estado</h5>
             <select name="estado" id="estado">
-                <option value="HABILITADO">HABILITADO</option>
+                {% if plato.estado_plato == 'HABILITADO' %}
+                <option value="HABILITADO" selected>HABILITADO</option>
                 <option value="DESHABILITAD">DESHABILITAD</option>
+                {% else %}
+                <option value="HABILITADO">HABILITADO</option>
+                <option value="DESHABILITAD" selected>DESHABILITAD</option>
+                {% endif %}
             </select>
-            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
+            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Descripcion" value={{desc}}>
 
             <!-- botones -->
-            <input class="boton" type="submit" value="guardar">
-            <input class="boton" type="submit" value="limpiar">
+            <input class="boton" type="submit" value="Modificar">
+            <input class="boton" type="reset" value="limpiar">
 
         </section>
     </form>  
