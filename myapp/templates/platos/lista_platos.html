@@ -7,28 +7,30 @@
 {% endblock css %}
 
 {% block contenido %}
-    <table>
-        <tr>
-            <th>Nombre plato</th>
-            <th>Precio plato</th>
-            <th>Stock plato</th>
-            <th>Estado plato</th>
-            <th>Descripcion</th>
-            <th>Herramientas</th>
-        </tr>
-        {% for p in plato  %}
+    <section class="form-registro">
+        <table>
             <tr>
-                <td>{{p.nombre_plato}}</td>
-                <td>{{p.precio_plato}}</td>
-                <td>{{p.stock_plato}}</td>
-                <td>{{p.estado_plato}}</td>
-                <td>{{p.descripcion}}</td>
-                <td><a href="{% url 'modificar_plato' p.id_plato %}">MODIFICAR</a> | <a href="{% url 'eliminar_plato' p.id_plato %}">ELIMINAR</a></td>
+                <th>Nombre plato</th>
+                <th>Precio plato</th>
+                <th>Stock plato</th>
+                <th>Estado plato</th>
+                <th>Descripcion</th>
+                <th>Herramientas</th>
             </tr>
-        {% endfor %}
-    </table>
-    <form action="{% url 'nuevo_plato' %}" method="get">
-        {% csrf_token %}
-        <input class="boton" type="submit" value="Nuevo PLato">
-    </form>
+            {% for p in plato  %}
+                <tr>
+                    <td>{{p.nombre_plato}}</td>
+                    <td>{{p.precio_plato}}</td>
+                    <td>{{p.stock_plato}}</td>
+                    <td>{{p.estado_plato}}</td>
+                    <td>{{p.descripcion}}</td>
+                    <td><a class="eliminar" href="{% url 'modificar_plato' p.id_plato %}">MODIFICAR</a> | <a class="eliminar" href="{% url 'eliminar_plato' p.id_plato %}">ELIMINAR</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <form action="{% url 'nuevo_plato' %}" method="get">
+            {% csrf_token %}
+            <input class="boton" type="submit" value="Nuevo PLato">
+        </form>
+    </section>
 {% endblock contenido %}
