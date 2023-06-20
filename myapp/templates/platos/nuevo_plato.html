@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/nuevo_plato.css" />
+{% endblock css %}
+
+{% block contenido %}
+    <form action="" method="post">
+        <section class="form-plato">
+            <!-- formulario -->
+            <h4>Formulario De Platos</h4>
+            <input class="controls" type="text" name="nombrePlato" id="nombrePlato" placeholder="Nombre Del Plato">
+            <input class="controls" type="number" name="precioPlato" id="precioPlato" placeholder="Precio Del Plato">
+            <input class="controls" type="number" name="stockPlato" id="stockPlato" placeholder="Stock Del Plato">
+            <h5 class="box">Estado</h5>
+            <select name="estado" id="estado">
+                <option value="HABILITADO">HABILITADO</option>
+                <option value="DESHABILITAD">DESHABILITAD</option>
+            </select>
+            <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
+
+            <!-- botones -->
+            <input class="boton" type="submit" value="guardar">
+            <input class="boton" type="submit" value="limpiar">
+
+        </section>
+    </form>  
+{% endblock contenido %}

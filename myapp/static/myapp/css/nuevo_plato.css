@@ -7,7 +7,7 @@ body{
     box-sizing: border-box;
 }
 
-.form-registro{
+.form-plato{
     width: 400px;
     background-color: #24303c;
     padding: 30px;
@@ -19,9 +19,36 @@ body{
     box-shadow: 7px 13px 37px #000;
 }
 
-.form-registro h4{
+.form-plato select{
+    text-align: center;
+    justify-content: center;
+}
+
+.tabla-ingre{
+    width: 400px;
+    background-color: #24303c;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px ;
+    font-family: 'calibri';
+    color: white;
+    box-shadow: 7px 13px 37px #000;
+}
+
+.tabla-ingre td{
+    border: solid black 3px;
+}
+
+
+.form-plato h4{
     font-size: 22px;
     margin-bottom: 20px;
+}
+
+h5{
+    font-family: 'calibri';
+    font-size: 16px;
 }
 
 .controls{
@@ -35,26 +62,29 @@ body{
     font-size: 18px;
     color: white;
 }
+.tamaño{
+    width: 49%;
+}
 
-.form-registro p{
+.form-plato p{
     height: 40px;
     text-align:center ;
     font-size: 18px;
     line-height: 40px;
 }
 
-.form-registro a{
+.form-plato a{
     color: white;
     text-decoration: none;
 }
 
-.form-registro a:hover {
+.form-plato a:hover {
     color: white;
     text-decoration: underline;
 }
 
-.form-registro .boton{
-    width: 49%;
+.form-plato .boton{
+    width: 100%;
     background-color:#1f53c5 ;
     border: none;
     padding: 12px;
@@ -63,40 +93,29 @@ body{
     font-size: 16px;
 }
 
-.form-registro .boton:hover{
+.form-plato .boton:hover{
     background-color:#153986 ;
 }
 
-.form-registro .eliminar{
-    width: 49%;
-    background-color:#1f53c5 ;
-    border: none;
-    padding: 12px;
-    color: white;
-    margin: 10px 0;
-    font-size: 16px;
+.box{
+    text-align: center;
 }
 
-.form-registro .eliminar:hover{
-    background-color:#b41818 ;
+.check{
+    margin-left: 165px;
+    margin-bottom: 20px;
 }
 
+table{
+    text-align: center;
+    align-items: center;
+}
 
 select{
     background-color: #24303c ;
     color: white;
-}
-
-.centrado{
-    text-align: center;
-    align-items: center;
+    border: 1px solid #1f53c5;
+    margin-bottom: 20px;
+    margin-left: 32%;
     justify-content: center;
 }
-
-h1{
-    text-align: center;
-    color: white;
-    font-size: 20px;
-}
-
-

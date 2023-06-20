@@ -8,7 +8,7 @@ body{
 }
 
 .form-registro{
-    width: 400px;
+    width: 600px;
     background-color: #24303c;
     padding: 30px;
     margin: auto;
@@ -22,6 +22,15 @@ body{
 .form-registro h4{
     font-size: 22px;
     margin-bottom: 20px;
+}
+
+th{
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+td{
+    border: 3px solid black;
 }
 
 .controls{
@@ -53,32 +62,39 @@ body{
     text-decoration: underline;
 }
 
-.form-registro .boton{
-    width: 49%;
+.boton{
+    width: 80px;
     background-color:#1f53c5 ;
     border: none;
     padding: 12px;
     color: white;
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 10px;
+}
+
+
+.eliminar{
+    color: white;
+    background-color: rgb(52, 7, 104);
+    text-decoration: none;
+}
+
+.Modificar{
+    color: black;
+    background-color: rgb(52, 7, 104);
+    text-decoration: none;
+}
+
+.text{
+    margin-left: 20px;
+}
+
+td a{
+    text-decoration: none;
 }
 
 .form-registro .boton:hover{
     background-color:#153986 ;
-}
-
-.form-registro .eliminar{
-    width: 49%;
-    background-color:#1f53c5 ;
-    border: none;
-    padding: 12px;
-    color: white;
-    margin: 10px 0;
-    font-size: 16px;
-}
-
-.form-registro .eliminar:hover{
-    background-color:#b41818 ;
 }
 
 
@@ -91,12 +107,6 @@ select{
     text-align: center;
     align-items: center;
     justify-content: center;
-}
-
-h1{
-    text-align: center;
-    color: white;
-    font-size: 20px;
 }
 
 

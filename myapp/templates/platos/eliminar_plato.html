@@ -1,0 +1,19 @@
+{% extends 'myapp/base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'myapp/'%}css/respuesta.css" />
+{% endblock css %}
+
+{% block contenido %}
+    <form action="" method="post">
+        <section class="form-registro">
+            <h1> seguro que deseas eliminar este plato? </h1>
+            <p>nombre: </p>
+
+            <input class="eliminar" type="submit" value="Confirmar">
+            <input class="boton" type="submit" value="Cancelar">
+        </section>
+    </form>
+{% endblock contenido %}
