@@ -7,14 +7,17 @@
 {% endblock css %}
 
 {% block contenido %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <section class="form-registro">
-            <h1> seguro que deseas eliminar este plato? </h1>
-            <p>nombre: {{plato}}</p>
+    <section class="form-registro">
+        <h1> seguro que deseas eliminar este plato? </h1>
+        <p>nombre: {{plato}}</p>
 
-            <input class="eliminar" type="submit" value="Confirmar">
-            <a href="{% url 'lista_platos' %}">Cancelar</a>
-        </section>
-    </form>
+        <form action="" method="post">
+            <input class="eliminar" type="submit" value="Confirmar"><form action="{% url 'lista_platos' %}" method="get">
+                <input type="submit" value="Cancelar">
+            </form>
+        </form>
+        <form action="{% url 'lista_platos' %}" method="get">
+            <input type="submit" value="Cancelar" class='eliminar'>
+        </form>
+    </section>
 {% endblock contenido %}
