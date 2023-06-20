@@ -17,18 +17,16 @@
     <div class="container">
         <!-- navbar -->
         <div class="topnav" id="myTopnav">
-            <a href="#" class="active">Inicio</a>
-            <a href="#">Comidas</a>
-            <a href="#">Contactos</a>
+            <a href="{% url 'inicio' %}" class="active">Inicio</a>
             {% if user.is_authenticated %}
                 <select name="lista" id="lista">
                     <option value="" selected ><a href="#">{{user.username}}</a></option>
                     <option value=""><a href="#logut">Cerrar session</a></option>
-                    <option value="platos"><a href="#">platos</a></option>
+                    <option value="platos"><a href="{% url 'lista_platos' %}">platos</a></option>
                     <option value="ventas"><a href="#">ventas</a></option>
                 </select>
             {% else %}
-                <a href="#">Iniciar Sesion</a>
+                <a href="{% url 'iniciar_sesion' %}">Iniciar Sesion</a>
             {% endif %}
             <a href="#" class="carrito" style="background-color: green">Carrito</a>
 

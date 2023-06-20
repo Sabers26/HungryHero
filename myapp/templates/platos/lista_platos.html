@@ -27,4 +27,7 @@
             </tr>
         {% endfor %}
     </table>
+    <form action="{% url 'nuevo_plato' %}" method="post">
+        <input class="boton" type="submit" value="Nuevo PLato">
+    </form>
 {% endblock contenido %}

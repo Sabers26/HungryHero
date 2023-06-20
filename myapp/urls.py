@@ -9,4 +9,5 @@ urlpatterns = [
     path('nuevoPlato/', views.nuevo_plato, name='nuevo_plato'),
     path('modificarPlato/<id>', views.modificar_plato, name='modificar_plato'),
     path('eliminarPlato/<id>', views.eliminar_plato, name='eliminar_plato'),
+    
 ]
