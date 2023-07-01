@@ -24,6 +24,7 @@
                     <td>{{p.stock_plato}}</td>
                     <td>{{p.estado_plato}}</td>
                     <td>{{p.descripcion}}</td>
+                    <td><img src="{{p.imagen}}" alt="{{p.nombre_plato}}"></td>
                     <td><a class="eliminar" href="{% url 'modificar_plato' p.id_plato %}">MODIFICAR</a> | <a class="eliminar" href="{% url 'eliminar_plato' p.id_plato %}">ELIMINAR</a></td>
                 </tr>
             {% endfor %}

@@ -71,16 +71,26 @@ def lista_platos(request):
 
 @permission_required('myapp.add_plato')
 def nuevo_plato(request):
+    
     data = {
         'mensaje': ''
     }
     
     if request.method == 'POST':
+        form = forms.NuevoPlatoForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            data['mensaje'] = 'Plato Guardado con exito'
+        else:
+            data['mensaje'] = 'No se pudo guardar el plato'
+    '''if request.method == 'POST':
         nombre = request.POST['nombrePlato']
         precio = request.POST['precioPlato']
         stock = request.POST['stockPlato']
         estado = request.POST['estado']
         desc = request.POST['descripcion']
+        foto = request.FILES['imagen']
         
         p = models.Plato()
         id_plato = uuid.uuid4()
@@ -91,11 +101,12 @@ def nuevo_plato(request):
         p.stock_plato = stock
         p.descripcion = desc
         p.estado_plato = estado
+        p.imagen = foto
         p.save()
         
         data = {
             'mensaje': 'Plato Guardado correctamente'
-        }
+        }'''
 
     return render(request, 'platos/nuevo_plato.html', data)
 

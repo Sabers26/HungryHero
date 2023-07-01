@@ -17,9 +17,9 @@ class Plato(models.Model):
     ]
     estado_plato = models.CharField(null=False, default="HABILITADO", max_length=15, choices=ESTADO)
     
-    descripcion = models.TextField(null=False, validators=(MinLengthValidator(1), MaxLengthValidator(300)))
+    descripcion = models.CharField(null=False, max_length=50, validators=(MinLengthValidator(1), MaxLengthValidator(50)))
     
-    #imagen = models.ImageField(null=False)
+    imagen = models.CharField(unique=True, null=False, max_length= 500, default='Sin imagen')
     def __str__(self):
         return str(f'{self.nombre_plato}')
     
@@ -28,7 +28,7 @@ class Carrito(models.Model):
     id_carrito = models.UUIDField(primary_key=True, default=uuid.uuid4())
     id_plato = models.ForeignKey(Plato, on_delete=PROTECT)
     sub_total = models.BigIntegerField(null=False, default=0, validators=(MinValueValidator(1), MaxValueValidator(99999)))
-    domicilio = models.TextField(null=False, blank=False, validators=(MinLengthValidator(5), MaxLengthValidator(300)))
+    domicilio = models.CharField(null=False, blank=False, max_length=80, validators=(MinLengthValidator(5), MaxLengthValidator(80)))
     
     ESTADO = [
         ('FINALIZADO', 'FINALIZADO'),

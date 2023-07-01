@@ -12,16 +12,16 @@
         <section class="form-plato">
             <!-- formulario -->
             <h4>Formulario De Platos</h4>
-            <input class="controls" type="text" name="nombrePlato" id="nombrePlato" placeholder="Nombre Del Plato" required>
-            <input class="controls" type="number" name="precioPlato" id="precioPlato" placeholder="Precio Del Plato" required>
-            <input class="controls" type="number" name="stockPlato" id="stockPlato" placeholder="Stock Del Plato" required>
+            <input class="controls" type="text" name="nombre_plato" id="nombre_plato" placeholder="Nombre Del Plato" required>
+            <input class="controls" type="number" name="precio_plato" id="precio_plato" placeholder="Precio Del Plato" required>
+            <input class="controls" type="number" name="stock_plato" id="stock_plato" placeholder="Stock Del Plato" required>
             <h5 class="box">Estado</h5>
-            <select name="estado" id="estado">
+            <select name="estado_plato" id="estado_plato">
                 <option value="HABILITADO" selected>HABILITADO</option>
                 <option value="DESHABILITAD">DESHABILITAD</option>
             </select>
             <input class="controls" type="text" name="descripcion" id="descripcion" placeholder="Descripcion" required>
-            <input class="imagen" type="file" name="imagen" id="imagen" placeholder="imagen">
+            <input type="text" class="controls" name="imagen" id="imagen" required placeholder="URL imagen">
 
             <!-- botones -->
             {{mensaje}}
