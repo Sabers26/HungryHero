@@ -2,15 +2,20 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
-from . import forms
-from . import models
+from .forms import *
+from .models import *
 import uuid
 
 id_usuario = any
 
 # Create your views here.
 def inicio(request):
-    return render(request, 'myapp/index.html')
+    platos = Plato.objects.all()
+    
+    data = {
+        'platos': platos
+    }
+    return render(request, 'myapp/index.html', data)
 
 def registrar_cliente(request):
     data = {
@@ -61,7 +66,7 @@ def iniciar_sesion(request):
 
 @permission_required('myapp.add_plato')
 def lista_platos(request):
-    platos = models.Plato.objects.all()
+    platos = Plato.objects.all()
     
     data = {
         'plato': platos
@@ -77,7 +82,7 @@ def nuevo_plato(request):
     }
     
     if request.method == 'POST':
-        form = forms.NuevoPlatoForm(request.POST)
+        form = NuevoPlatoForm(request.POST)
         
         if form.is_valid():
             form.save()
@@ -112,7 +117,7 @@ def nuevo_plato(request):
 
 @permission_required('myapp.add_plato')
 def eliminar_plato(request, id):
-    plato = models.Plato.objects.get(id_plato = id)
+    plato = Plato.objects.get(id_plato = id)
     data = {
         'plato': plato.nombre_plato
     }
@@ -124,7 +129,7 @@ def eliminar_plato(request, id):
 
 @permission_required('myapp.add_plato')
 def modificar_plato(request, id):
-    p = models.Plato.objects.get(id_plato=id)
+    p = Plato.objects.get(id_plato=id)
     data = {
         'plato': p,
         'desc': str(p.descripcion)

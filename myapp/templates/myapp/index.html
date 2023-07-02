@@ -7,27 +7,25 @@
 {% endblock css %}
 
 {% block contenido %}
-    <form action="" method="post"></form>
+    {% for p  in platos %}
         <!-- box -->
         <div class="titulo">
-            <h1>Arroz Con Leche</h1>
+            <h1>{{p.nombre_plato}}</h1>
             <div class="box">
                 <!-- imagen -->
                 <div class="imgbox">
-                    <img src="imagenes/arroz con leche.jpeg" alt="">
+                    <img src="{{p.imagen}}" alt="{{p.nombre_plato}}">
                 </div>
                 <!-- contenidop detras de la imagen -->
                 <div class="content" >
                     <!-- necesario -->
                     -
                     <!-- necesario -->
-                    <p style="margin-left: 75%;">-contenido</p>
-                    <p style="margin-left: 75%;">-arroz 100g</p>
-                    <p style="margin-left: 75%;">-leche condensada</p>
+                    <p style="margin-left: 75%;">{{p.descripcion}}</p>
             
-                    <center><form style="margin-top: 27%;"> <button type="button" class="boton">Carrito</button> <p class="precio">$999</p></form></center>
+                    <center><form style="margin-top: 27%;"> <button type="button" class="boton">Carrito</button> <p class="precio">{{p.precio}}</p></form></center>
                 </div>
             </div>
         </div>
-    </form>
+    {% endfor %}
 {% endblock contenido %}
