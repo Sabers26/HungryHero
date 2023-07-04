@@ -4,4 +4,5 @@ from . import models
 
 admin.site.register(models.Cliente)
 admin.site.register(models.Plato)
-admin.site.register(models.Carrito)
+admin.site.register(models.CarritoCompras)
+admin.site.register(models.ElementoCarrito)

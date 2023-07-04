@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .forms import *
 from .models import *
 import uuid
+from django.shortcuts import get_object_or_404
+from django.db.models import F
 
 id_usuario = any
 
@@ -34,7 +36,7 @@ def registrar_cliente(request):
         usr.set_password(password)
         usr.save()
         
-        cliente = models.Cliente()
+        cliente = Cliente()
         id_cli = uuid.uuid4()
         cliente.id_cliente = id_cli
         cliente.nombre = nombre
@@ -159,3 +161,64 @@ def modificar_plato(request, id):
 def cerrar_sesion(request):
     logout(request)
     return redirect(to=inicio)
+
+@login_required
+def carrito(request):
+    if request.method == 'POST':
+        usuario = User.objects.get(username=request.user.username)
+        
+        carrito = CarritoCompras.objects.get(usuario=usuario, estado=False)
+        
+        carrito.actualizar_total()
+        carrito.estado = True
+        carrito.save()
+        redirect('inicio')
+    data = {
+        'sin_carrito': '',
+        'elemento_carrito': None
+    }
+    usuario = User.objects.get(id=request.user.id)
+    carrito = CarritoCompras.objects.get(usuario=usuario)
+    
+    elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito)
+    
+    if not elemento_carrito.exists():
+        data['sin_carrito'] = 'No tiene productos asociados aun. . . '
+    else:
+        data['elemento_carrito'] = elemento_carrito
+        print(elemento_carrito)
+    
+    return render(request, 'carrito/carrito.html', data)
+
+@login_required
+def agregar_carrito(request, id_plato):
+    id_plato = uuid.UUID(id_plato)
+    plato = get_object_or_404(Plato, id_plato=id_plato)
+    
+    usuario = User.objects.get(username=request.user.username)
+    carrito, created = CarritoCompras.objects.get_or_create(usuario=usuario)
+    
+    if not created:
+        carrito = CarritoCompras.objects.get(usuario=usuario)
+    
+    elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito, plato=plato)
+    
+    if not elemento_carrito.exists():
+        elemento_carrito = ElementoCarrito()
+        elemento_carrito.carrito = carrito
+        elemento_carrito.plato = plato
+        elemento_carrito.cantidad = 1
+        elemento_carrito.sub_total = elemento_carrito.plato.precio_plato
+        elemento_carrito.save()
+    
+    return redirect('carrito')
+
+def eliminar_carrito(request, id_plato):
+    usuario = User.objects.get(username=request.user.username)
+    carrito = CarritoCompras.objects.get(usuario=usuario, estado=False)
+    plato = Plato.objects.get(id_plato=id_plato)
+    
+    elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito, plato=plato)
+    elemento_carrito.delete()
+    
+    return redirect('carrito')

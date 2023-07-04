@@ -7,30 +7,32 @@
 {% endblock css %}
 
 {% block contenido %}
-    <section class="form-plato">
-        <h1>CARRITO DE COMPRA</h1>
-        <div class="informacion">
-            <ul>
-                <li class="info" >Nombre: <h4><!-- texto --> no se que va aqui</h4></li>
-                <li class="info" >ID: <h4><!-- texto --> no se que va aqui</h4></li>
-                <li class="info" >Descipcion: <h4><!-- texto --> no se que va aqui</h4></li>
-                <li class="info" >Precio: <h4><!-- texto --> no se que va aqui</h4></li>
-            </ul>
-            <div class="center">
-                <select name="cantidad" id="cantidad">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-            </div>
-            <form action="eliminar" method="post">
-                <input class="eliminar" type="submit" value="Eliminar">
+        <section class="form-plato">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h1>CARRITO DE COMPRAS</h1>
+                {% for elemento in elemento_carrito %}
+                <div class="informacion">
+                    <ul>
+                        <li class="info" >Nombre: <h4>{{elemento.plato.nombre_plato}}</h4></li>
+                        <li class="info" >ID: <h4>{{elemento.plato.id_plato}}</h4></li>
+                        <li class="info" >Descipcion: <h4>{{elemento.plato.descripcion}}</h4></li>
+                        <li class="info" >Precio: <h4>{{elemento.plato.precio_plato}}</h4></li>
+                    </ul>
+                    <div class="center">
+                        <select name="cantidad" id="cantidad">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <a href="{% url 'eliminar_carrito' elemento.plato.id_plato %}">Eliminar</a>
+                    <input type="hidden" name="id_plato" value="{{elemento.plato.id_plato}}">
+                </div>
+                {% endfor %}
+                    <div class="center">
+                        <input class="boton" type="submit" value="Comprar">
+                    </div>
             </form>
-        </div>
-        <form action="compra" method="post">
-            <div class="center">
-                <input class="boton" type="submit" value="Comprar">
-            </div>
-        </form>
-    </section>
+        </section>
 {% endblock contenido %}

@@ -24,18 +24,31 @@ class Plato(models.Model):
         return str(f'{self.nombre_plato}')
     
 
-class Carrito(models.Model):
-    id_carrito = models.UUIDField(primary_key=True, default=uuid.uuid4())
-    id_plato = models.ForeignKey(Plato, on_delete=PROTECT)
-    sub_total = models.BigIntegerField(null=False, default=0, validators=(MinValueValidator(1), MaxValueValidator(99999)))
-    domicilio = models.CharField(null=False, blank=False, max_length=80, validators=(MinLengthValidator(5), MaxLengthValidator(80)))
+class CarritoCompras(models.Model):
+    platos = models.ManyToManyField(Plato, through='ElementoCarrito')
+    total_venta = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    usuario = models.ForeignKey(User, on_delete=PROTECT)
+    estado = models.BooleanField(default=False)
     
-    ESTADO = [
-        ('FINALIZADO', 'FINALIZADO'),
-        ('PENDIENTE', 'PENDIENTE')
-    ]
+    def actualizar_total(self):
+        self.total_venta = sum(elemento.sub_total for elemento in self.elementocarrito_set.all()) #esperamos a terminar la otra tabla
+        self.save()
+        
+    def __str__(self):
+        return str(f'carrito de {self.usuario.username} - {self.estado}')
+
+class ElementoCarrito(models.Model):
+    carrito = models.ForeignKey(CarritoCompras, on_delete=PROTECT)
+    plato = models.ForeignKey(Plato, on_delete=PROTECT)
+    cantidad = models.PositiveIntegerField(default=1)
+    sub_total = models.DecimalField(max_digits=12, decimal_places=2)
     
-    finalizado = models.CharField(null=False, default="PENDIENTE", max_length=15, choices=ESTADO)
+    def __str__(self):
+        return str(f'elementos del carrito de {self.carrito.usuario.username}')
+    
+    def calcular_subTotal(self):
+        self.sub_total = self.cantidad*self.plato.precio_plato
+        self.save()
 
 class Cliente(models.Model):
     id_cliente = models.UUIDField(primary_key=True)
@@ -43,7 +56,7 @@ class Cliente(models.Model):
     apellido = models.CharField(null=False, blank=False, max_length=20)
     email = models.EmailField(null=False, blank=False, unique=True)
     
-    cuenta = models.OneToOneField(User, unique=True, related_name='Perfil', on_delete=CASCADE)
+    cuenta = models.OneToOneField(User, unique=True, related_name='Perfil', on_delete=PROTECT)
     
     def __str__(self):
         return str(f'{self.email}')

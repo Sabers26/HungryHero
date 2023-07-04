@@ -23,7 +23,7 @@
                     <!-- necesario -->
                     <p style="margin-left: 77%;">{{p.descripcion}}</p>
             
-                    <center><form style="margin-top: 27%;"> <a href="#"><button type="button" class="boton">Carrito</button></a> <p class="precio">{{p.precio}}</p></form></center>
+                    <center><a href="{% url 'agregar_carrito' p.id_plato %}"><button type="button" class="boton">Carrito</button></a> <p class="precio">{{p.precio}}</p></center>
                 </div>
             </div>
         </div>
