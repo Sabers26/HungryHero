@@ -20,10 +20,10 @@
                         <li class="info" >Precio: <h4>{{elemento.plato.precio_plato}}</h4></li>
                     </ul>
                     <div class="center">
-                        <select name="cantidad" id="cantidad">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                        <select name="cantidad_{{elemento.plato.id_plato}}" id="cantidad">
+                            {% for valor in rango_cantidad %}
+                                <option value="{{valor}}">{{valor}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <a href="{% url 'eliminar_carrito' elemento.plato.id_plato %}">Eliminar</a>

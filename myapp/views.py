@@ -164,30 +164,33 @@ def cerrar_sesion(request):
 
 @login_required
 def carrito(request):
-    if request.method == 'POST':
-        usuario = User.objects.get(username=request.user.username)
-        
-        carrito = CarritoCompras.objects.get(usuario=usuario, estado=False)
-        
-        carrito.actualizar_total()
-        carrito.estado = True
-        carrito.save()
-        redirect('inicio')
-    data = {
-        'sin_carrito': '',
-        'elemento_carrito': None
-    }
-    usuario = User.objects.get(id=request.user.id)
-    carrito = CarritoCompras.objects.get(usuario=usuario)
-    
+    usuario = User.objects.get(username=request.user.username)
+    carrito = CarritoCompras.objects.get(usuario=usuario, estado=False)
     elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito)
     
-    if not elemento_carrito.exists():
-        data['sin_carrito'] = 'No tiene productos asociados aun. . . '
-    else:
-        data['elemento_carrito'] = elemento_carrito
-        print(elemento_carrito)
+    data = {
+        'elemento_carrito': elemento_carrito,
+        'rango_cantidad': None
+    }
+    if request.method == 'POST':
+        
+        for elemento in elemento_carrito:
+            cantidad = request.POST.get('cantidad_{}'.format(elemento.plato.id_plato))
+            elemento.cantidad = int(cantidad)
+            elemento.calcular_subTotal()
+            elemento.save()
+            plato = Plato.objects.get(id_plato=elemento.plato.id_plato)
+            cantidad_int = int(cantidad)
+            plato.stock_plato -= cantidad_int
+            plato.save()
+        
+        carrito.estado = True
+        carrito.actualizar_total()
+        carrito.save()
+        return redirect(to='inicio')
     
+    rango_cantidad = range(1, max(elemento.plato.stock_plato for elemento in elemento_carrito) + 1)
+    data['rango_cantidad'] = rango_cantidad
     return render(request, 'carrito/carrito.html', data)
 
 @login_required
@@ -208,7 +211,7 @@ def agregar_carrito(request, id_plato):
         elemento_carrito.carrito = carrito
         elemento_carrito.plato = plato
         elemento_carrito.cantidad = 1
-        elemento_carrito.sub_total = elemento_carrito.plato.precio_plato
+        elemento_carrito.calcular_subTotal()
         elemento_carrito.save()
     
     return redirect('carrito')
