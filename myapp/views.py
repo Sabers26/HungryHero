@@ -12,7 +12,7 @@ id_usuario = any
 
 # Create your views here.
 def inicio(request):
-    platos = Plato.objects.all()
+    platos = Plato.objects.filter(stock_plato__gt=0, estado_plato='HABILITADO')
     
     data = {
         'platos': platos
@@ -29,7 +29,7 @@ def registrar_cliente(request):
         email = request.POST['correo']
         username = request.POST['usuario']
         password = request.POST['password']
-        password2 = request.POST['password2']
+        #password2 = request.POST['password2']
         
         usr = User()
         usr.username = username
@@ -165,8 +165,8 @@ def cerrar_sesion(request):
 @login_required
 def carrito(request):
     usuario = User.objects.get(username=request.user.username)
-    carrito = CarritoCompras.objects.get(usuario=usuario, estado=False)
-    elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito)
+    carrito, created = CarritoCompras.objects.get_or_create(usuario=usuario, estado=False)
+    elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito.id_carrito)
     
     data = {
         'elemento_carrito': elemento_carrito,

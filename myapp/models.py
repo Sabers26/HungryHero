@@ -6,7 +6,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator, MaxLeng
 # Create your models here.
 # tablas necesarias para el retiro en tienda 
 class Plato(models.Model):
-    id_plato = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    id_plato = models.UUIDField(primary_key=True, default=uuid.uuid4)
     nombre_plato=models.CharField(max_length=50, null=False, unique=True, blank=False)
     precio_plato = models.BigIntegerField(null=False, validators=(MinValueValidator(1), MaxValueValidator(99999)), default=0)
     stock_plato = models.BigIntegerField(null=False, default=0, validators=(MinValueValidator(1), MaxValueValidator(99999)))
@@ -25,6 +25,7 @@ class Plato(models.Model):
     
 
 class CarritoCompras(models.Model):
+    id_carrito = models.UUIDField(primary_key=True, default=uuid.uuid4())
     platos = models.ManyToManyField(Plato, through='ElementoCarrito')
     total_venta = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     usuario = models.ForeignKey(User, on_delete=PROTECT)
