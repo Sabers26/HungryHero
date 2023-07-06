@@ -201,10 +201,7 @@ def agregar_carrito(request, id_plato):
     plato = get_object_or_404(Plato, id_plato=id_plato)
     
     usuario = User.objects.get(username=request.user.username)
-    carrito, created = CarritoCompras.objects.get_or_create(usuario=usuario)
-    
-    if not created:
-        carrito = CarritoCompras.objects.get(usuario=usuario)
+    carrito, created = CarritoCompras.objects.get_or_create(usuario=usuario, estado=False)
     
     elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito, plato=plato)
     
