@@ -167,30 +167,32 @@ def carrito(request):
     usuario = User.objects.get(username=request.user.username)
     carrito, created = CarritoCompras.objects.get_or_create(usuario=usuario, estado=False)
     elemento_carrito = ElementoCarrito.objects.filter(carrito=carrito.id_carrito)
-    
     data = {
-        'elemento_carrito': elemento_carrito,
-        'rango_cantidad': None
-    }
-    if request.method == 'POST':
+            'elemento_carrito': None,
+            'rango_cantidad': None
+        }
+    if elemento_carrito.exists():
+        data['elemento_carrito'] = elemento_carrito
+        if request.method == 'POST':
+            
+            for elemento in elemento_carrito:
+                cantidad = request.POST.get('cantidad_{}'.format(elemento.plato.id_plato))
+                elemento.cantidad = int(cantidad)
+                elemento.calcular_subTotal()
+                elemento.save()
+                plato = Plato.objects.get(id_plato=elemento.plato.id_plato)
+                cantidad_int = int(cantidad)
+                plato.stock_plato -= cantidad_int
+                plato.save()
+            
+            carrito.estado = True
+            carrito.actualizar_total()
+            carrito.save()
+            return redirect(to='inicio')
         
-        for elemento in elemento_carrito:
-            cantidad = request.POST.get('cantidad_{}'.format(elemento.plato.id_plato))
-            elemento.cantidad = int(cantidad)
-            elemento.calcular_subTotal()
-            elemento.save()
-            plato = Plato.objects.get(id_plato=elemento.plato.id_plato)
-            cantidad_int = int(cantidad)
-            plato.stock_plato -= cantidad_int
-            plato.save()
+        rango_cantidad = range(1, max(elemento.plato.stock_plato for elemento in elemento_carrito) + 1)
+        data['rango_cantidad'] = rango_cantidad
         
-        carrito.estado = True
-        carrito.actualizar_total()
-        carrito.save()
-        return redirect(to='inicio')
-    
-    rango_cantidad = range(1, max(elemento.plato.stock_plato for elemento in elemento_carrito) + 1)
-    data['rango_cantidad'] = rango_cantidad
     return render(request, 'carrito/carrito.html', data)
 
 @login_required
