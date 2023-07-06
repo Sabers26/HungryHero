@@ -109,4 +109,10 @@ select{
     justify-content: center;
 }
 
+tr td img{
+    width: 30px;
+}
 
+img{
+    width: 30px;
+}

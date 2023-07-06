@@ -26,7 +26,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <a href="{% url 'eliminar_carrito' elemento.plato.id_plato %}">Eliminar</a>
+                    <a class="eliminar" href="{% url 'eliminar_carrito' elemento.plato.id_plato %}">Eliminar</a>
                     <input type="hidden" name="id_plato" value="{{elemento.plato.id_plato}}">
                 </div>
                 {% endfor %}
