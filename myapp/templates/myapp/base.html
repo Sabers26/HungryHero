@@ -21,7 +21,6 @@
             {% if user.is_authenticated %}
                 {% if perms.myapp.add_plato %}
                     <a href="{% url 'lista_platos' %}">platos</a>
-                    <a href="#">ventas</a>
                 {% endif %}
                 <a href="{% url 'cerrar_sesion' %}">{{user.username}}: cerrar sesion</a>
                 <a href="{% url 'carrito' %}" class="carrito" style="background-color: green">Carrito</a>
