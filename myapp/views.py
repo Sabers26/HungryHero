@@ -7,6 +7,8 @@ from .models import *
 import uuid
 from django.shortcuts import get_object_or_404
 from django.db.models import F
+from rest_framework import viewsets
+from .serializers import PlatoSerializer
 
 id_usuario = any
 
@@ -224,3 +226,7 @@ def eliminar_carrito(request, id_plato):
     elemento_carrito.delete()
     
     return redirect('carrito')
+
+'''class PlatoViewSet(viewsets.ModelViewSet):
+    queryset = Plato.objects.all()
+    serializer_class = PlatoSerializer'''

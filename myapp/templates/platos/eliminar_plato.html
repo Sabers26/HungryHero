@@ -12,11 +12,12 @@
         <p>nombre: {{plato}}</p>
 
         <form action="" method="post">
+            {% csrf_token %}
             <input class="eliminar" type="submit" value="Confirmar"><form action="{% url 'lista_platos' %}" method="get">
-                <input type="submit" value="Cancelar">
             </form>
         </form>
         <form action="{% url 'lista_platos' %}" method="get">
+            {% csrf_token %}
             <input type="submit" value="Cancelar" class='eliminar'>
         </form>
     </section>

@@ -19,13 +19,13 @@ class Plato(models.Model):
     
     descripcion = models.CharField(null=False, max_length=50, validators=(MinLengthValidator(1), MaxLengthValidator(50)))
     
-    imagen = models.CharField(unique=True, null=False, max_length= 10000, default='Sin imagen')
+    imagen = models.CharField(unique=True, null=False, max_length=10000, default='Sin imagen')
     def __str__(self):
         return str(f'{self.nombre_plato}')
     
 
 class CarritoCompras(models.Model):
-    id_carrito = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    id_carrito = models.UUIDField(primary_key=True, default=uuid.uuid4)
     platos = models.ManyToManyField(Plato, through='ElementoCarrito')
     total_venta = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     usuario = models.ForeignKey(User, on_delete=PROTECT)
